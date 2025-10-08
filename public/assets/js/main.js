@@ -6,14 +6,17 @@
 */
 document.addEventListener('DOMContentLoaded', () => {
   "use strict";
+  console.log('DOMContentLoaded event fired.');
 
   /**
    * Preloader
    */
   const preloader = document.querySelector('#preloader');
   if (preloader) {
+    // The preloader is now hidden via CSS, but keep this for robustness
     window.addEventListener('load', () => {
       preloader.remove();
+      console.log('Preloader removed on window load.');
     });
   }
 
@@ -100,38 +103,42 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * Porfolio isotope and filter
    */
-  let portfolionIsotope = document.querySelector('.portfolio-isotope');
+  let portfolioIsotopeElement = document.querySelector('.portfolio-isotope');
 
-  if (portfolionIsotope) {
+  if (portfolioIsotopeElement) {
+    console.log('Portfolio Isotope element found, attempting to initialize.');
 
-    let portfolioFilter = portfolionIsotope.getAttribute('data-portfolio-filter') ? portfolionIsotope.getAttribute('data-portfolio-filter') : '*';
-    let portfolioLayout = portfolionIsotope.getAttribute('data-portfolio-layout') ? portfolionIsotope.getAttribute('data-portfolio-layout') : 'masonry';
-    let portfolioSort = portfolionIsotope.getAttribute('data-portfolio-sort') ? portfolionIsotope.getAttribute('data-portfolio-sort') : 'original-order';
+    let portfolioFilter = portfolioIsotopeElement.getAttribute('data-portfolio-filter') ? portfolioIsotopeElement.getAttribute('data-portfolio-filter') : '*';
+    let portfolioLayout = portfolioIsotopeElement.getAttribute('data-portfolio-layout') ? portfolioIsotopeElement.getAttribute('data-portfolio-layout') : 'masonry';
+    let portfolioSort = portfolioIsotopeElement.getAttribute('data-portfolio-sort') ? portfolioIsotopeElement.getAttribute('data-portfolio-sort') : 'original-order';
 
-    window.addEventListener('load', () => {
-      let portfolioIsotope = new Isotope(document.querySelector('.portfolio-container'), {
-        itemSelector: '.portfolio-item',
-        layoutMode: portfolioLayout,
-        filter: portfolioFilter,
-        sortBy: portfolioSort
-      });
+    let portfolioIsotope = new Isotope(document.querySelector('.portfolio-container'), {
+      itemSelector: '.portfolio-item',
+      layoutMode: portfolioLayout,
+      filter: portfolioFilter,
+      sortBy: portfolioSort
+    });
+    console.log('Isotope initialized successfully on DOMContentLoaded.');
 
-      let menuFilters = document.querySelectorAll('.portfolio-isotope .portfolio-flters li');
-      menuFilters.forEach(function(el) {
-        el.addEventListener('click', function() {
-          document.querySelector('.portfolio-isotope .portfolio-flters .filter-active').classList.remove('filter-active');
-          this.classList.add('filter-active');
-          portfolioIsotope.arrange({
-            filter: this.getAttribute('data-filter')
-          });
-          if (typeof aos_init === 'function') {
-            aos_init();
-          }
-        }, false);
-      });
-
+    // Ensure images are loaded before triggering Isotope layout
+    imagesLoaded(document.querySelector('.portfolio-container'), function() {
+      portfolioIsotope.layout();
+      console.log('Isotope layout triggered after all images are loaded.');
     });
 
+    let menuFilters = document.querySelectorAll('.portfolio-isotope .portfolio-flters li');
+    menuFilters.forEach(function(el) {
+      el.addEventListener('click', function() {
+        document.querySelector('.portfolio-isotope .portfolio-flters .filter-active').classList.remove('filter-active');
+        this.classList.add('filter-active');
+        portfolioIsotope.arrange({
+          filter: this.getAttribute('data-filter')
+        });
+        if (typeof aos_init === 'function') {
+          aos_init();
+        }
+      }, false);
+    });
   }
 
   /**
@@ -205,8 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
       mirror: false
     });
   }
-  window.addEventListener('load', () => {
-    aos_init();
-  });
+  // Initialize AOS on DOMContentLoaded as well
+  aos_init();
 
 });

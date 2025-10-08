@@ -243,6 +243,11 @@ section {
   }
 }
 
+/* Force hide preloader for debugging purposes */
+#preloader {
+  display: none !important;
+}
+
 /*--------------------------------------------------------------
 # Disable aos animation delay on mobile devices
 --------------------------------------------------------------*/
@@ -994,6 +999,16 @@ section {
 
 .projects .portfolio-content:hover img {
   transform: scale(1.1);
+}
+
+/* Ensure portfolio items are visible and container has height */
+.portfolio-container {
+  min-height: 200px; /* Ensure it has some height even if content is not loaded */
+  overflow: visible; /* Prevent clipping */
+}
+
+.portfolio-item {
+  display: block; /* Ensure items are displayed */
 }
 
 /*--------------------------------------------------------------
@@ -2049,7 +2064,7 @@ section {
   transition: 0.3s;
 }
 
-.blog .posts-list .post-img img {
+.blog .posts-list .post-item .post-img img {
   transition: 0.5s;
 }
 
@@ -2573,6 +2588,16 @@ section {
 .blog .comments .reply-form .btn-primary:hover {
   color: var(--color-secondary);
   background-color: var(--color-primary);
+}
+
+@keyframes animate-loading {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /*--------------------------------------------------------------

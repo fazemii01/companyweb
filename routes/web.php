@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\NewsController;
 use App\Http\Controllers\HomeController;
 
 /*
@@ -17,8 +16,6 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::resource('news', NewsController::class);
-
 Route::get('/about', function () {
     return view('about');
 })->name('about');
@@ -30,6 +27,14 @@ Route::get('/services', function () {
 Route::get('/projects', function () {
     return view('projects');
 })->name('projects');
+
+Route::get('/blog', function () {
+    return view('blog');
+})->name('blog');
+
+Route::get('/blog-details', function () {
+    return view('blog-details');
+})->name('blog-details');
 
 Route::get('/contact', function () {
     return view('contact');

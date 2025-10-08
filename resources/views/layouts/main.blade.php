@@ -53,7 +53,7 @@
           <li><a href="{{ route('about') }}" class="{{ Request::is('about') ? 'active' : '' }}">About</a></li>
           <li><a href="{{ route('services') }}" class="{{ Request::is('services') ? 'active' : '' }}">Services</a></li>
           <li><a href="{{ route('projects') }}" class="{{ Request::is('projects') ? 'active' : '' }}">Projects</a></li>
-          <li><a href="{{ route('news.index') }}" class="{{ Request::is('news*') ? 'active' : '' }}">Blog</a></li>
+          <li><a href="{{ route('blog') }}" class="{{ Request::is('blog') ? 'active' : '' }}">Blog</a></li>
           <li class="dropdown"><a href="#"><span>Dropdown</span> <i
                 class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
@@ -179,6 +179,8 @@
   <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/aos/aos.js') }}"></script>
   <script src="{{ asset('assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+  <!-- imagesLoaded library for Isotope to ensure images are loaded before layout -->
+  <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
   <script src="{{ asset('assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/purecounter/purecounter_vanilla.js') }}"></script>
