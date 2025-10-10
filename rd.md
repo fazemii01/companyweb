@@ -56,7 +56,7 @@ The `chatbot-server` is built using NestJS and leverages several key technologie
     *   Connects to the local Weaviate instance.
     *   Initializes the `WeaviateStore` with the `Chatbot` index.
     *   Sets up the `masterChain` (RAG pipeline).
-2.  **File Processing (`processFile`, `processBatch`):**
+2.  **File Processing (`processFile`, `processBatch`):
     *   When a file is uploaded, it's either treated as a text document or an image.
     *   If an image, `moondream` analyzes it to extract structured information (property name, pricing, etc.).
     *   The content (raw text or image description) is chunked using `RecursiveCharacterTextSplitter`.
@@ -150,3 +150,63 @@ type Document = {
 ## 4.1.5 Conclusion
 
 The chatbot project is designed as a robust, scalable, and intelligent system capable of understanding user queries, processing various data types (text and images), and providing relevant responses based on a dynamic knowledge base. The clear separation between the client and server, coupled with the use of modern AI and data management technologies, ensures a flexible and maintainable architecture.
+
+## 4.1.6 Project Roadmap (3-Month Estimate)
+
+This roadmap outlines the estimated timeline for the development and implementation of the chatbot-server and client applications, assuming a 3-month project duration.
+
+### Month 1: Planning & Core Backend Development
+
+**Focus:** Establish foundational backend services, knowledge base, and core AI integration.
+
+*   **Week 1-2: Setup & Initial Backend Services (Chatbot Server)**
+    *   Project setup (NestJS, TypeScript).
+    *   Docker/Docker Compose configuration for local development (Ollama, Weaviate).
+    *   Basic `ChatService` structure (LangChain integration).
+    *   Implement initial Ollama LLM and Embeddings setup.
+    *   Weaviate integration for vector store.
+    *   Basic text document processing and indexing.
+    *   Unit tests for core `ChatService` functionalities.
+*   **Week 3-4: RAG Pipeline & Reranking Integration (Chatbot Server)**
+    *   Implement `MultiQueryRetriever` and `HistoryAwareRetriever`.
+    *   Integrate external Reranking Service.
+    *   Develop `processFile` logic for text documents (chunking, embedding, storing).
+    *   WebSocket gateway setup (`ChatGateway`) for real-time communication.
+    *   Initial API endpoint for file uploads (`ChatController`).
+    *   Integration tests for the full RAG pipeline.
+
+### Month 2: Advanced Backend & Frontend Integration
+
+**Focus:** Enhance backend capabilities (vision, batch processing) and integrate the client application with the backend.
+
+*   **Week 5-6: Vision & Batch Processing (Chatbot Server)**
+    *   Integrate Moondream vision model for image analysis.
+    *   Develop structured information extraction from images.
+    *   Implement `processBatch` for efficient multiple file uploads.
+    *   Refine document metadata handling for both text and images.
+    *   Performance optimization for embedding and retrieval.
+*   **Week 7-8: Client Application Development & Integration (Client)**
+    *   Next.js project setup.
+    *   Develop `ChatWidget` UI (message display, input field, send button).
+    *   Implement WebSocket client (`socket.io-client`) for chat.
+    *   Integrate file upload functionality in `ChatWidget` (UI for file selection, display, removal).
+    *   Connect client file upload to backend `/chat/upload` endpoint.
+    *   Basic styling and responsiveness.
+
+### Month 3: Testing, Refinement & Deployment
+
+**Focus:** Comprehensive testing, bug fixing, performance tuning, and preparing for deployment.
+
+*   **Week 9-10: End-to-End Testing & Bug Fixing**
+    *   Conduct extensive end-to-end testing for both chat interaction and file upload workflows.
+    *   Identify and fix bugs in both client and server.
+    *   User Acceptance Testing (UAT) with sample users.
+    *   Refine chatbot responses and prompt engineering for better accuracy and relevance.
+    *   Security review for file uploads and API endpoints.
+*   **Week 11-12: Performance Optimization & Deployment Preparation**
+    *   Optimize database queries and indexing in Weaviate.
+    *   Monitor and improve LLM inference speed.
+    *   Containerization optimization (Docker image size, build times).
+    *   Documentation updates (API, deployment guide).
+    *   Prepare deployment scripts and environment (e.g., Kubernetes, cloud services).
+    *   Final review and handover.
