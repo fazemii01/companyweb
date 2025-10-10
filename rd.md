@@ -19,7 +19,7 @@ graph TD
     B -- Message --> C[Client emits 'message' event to Chatbot Server via WebSocket];
     B -- File Upload --> D[Client sends POST request to /chat/upload on Chatbot Server];
     C --> E[ChatService on Server receives message];
-    D --> F[ChatService on Server processes file (image/text processing)];
+    D --> F[ChatService processes file];
     F --> G[ChatService on Server adds processed document to Weaviate vector store];
     E --> H{Is message a greeting?};
     H -- Yes --> I[ChatService generates greeting response];
