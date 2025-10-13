@@ -15,9 +15,9 @@ The communication between the Client and the Chatbot Server is primarily via Web
 
 ```mermaid
 graph TD
-    A[User interacts with ChatWidget on Client] --> B{User sends message or uploads file};
+    A[User interacts with ChatWidget on Client] --> B{User sends message or ADMIN uploads file for knowledge};
     B -- Message --> C[Client emits 'message' event to Chatbot Server via WebSocket];
-    B -- File Upload --> D[Client sends POST request to /chat/upload on Chatbot Server];
+    B -- File Upload --> D[ADMIN sends POST request to /chat/upload on Chatbot Server];
     C --> E[ChatService on Server receives message];
     D --> F[ChatService processes file];
     F --> G[ChatService on Server adds processed document to Weaviate vector store];
